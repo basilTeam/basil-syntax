@@ -1,0 +1,231 @@
+{
+    "name": "Basil",
+    "scopeName": "source.basil",
+    "fileTypes": ["bl", "basil"],
+    "patterns": [
+        { "include": "#comment" },
+        {
+            "name": "constant.numeric.basil",
+            "match": "\\b[[:digit:]]+(\\.[[:digit:]]+)?"
+        },
+        {
+            "begin": "\\b(ref)\\s*",
+            "end": "(=|:|of)\\s+", 
+            "beginCaptures": {
+                "1": {
+                    "name": "keyword.other.basil"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "keyword.operator.basil"
+                }
+            },
+            "patterns": [
+                {
+                    "begin": "\\(",
+                    "end": "\\)",
+                    "patterns": [
+                        { "include": "#comment" },
+                        { "include": "#param" },
+                        { "include": "#typename" },
+                        { "include": "#operator" }
+                    ]
+                },
+                { "include": "#comment" },
+                { "include": "#param" },
+                { "include": "#fn-ident" }
+            ]
+        },
+        {
+            "begin": "\\b(def)\\s*",
+            "end": "(=|:|of)\\s+", 
+            "beginCaptures": {
+                "1": {
+                    "name": "keyword.other.basil"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "keyword.operator.basil"
+                }
+            },
+            "patterns": [
+                {
+                    "begin": "\\(",
+                    "end": "\\)",
+                    "patterns": [
+                        { "include": "#comment" },
+                        { "include": "#param" },
+                        { "include": "#typename" },
+                        { "include": "#operator" }
+                    ]
+                },
+                { "include": "#comment" },
+                { "include": "#param" },
+                { "include": "#fn-ident" }
+            ]
+        },
+        {
+            "begin": "\\b(lambda)\\s*",
+            "end": "(=|:)\\s+", 
+            "beginCaptures": {
+                "1": {
+                    "name": "keyword.other.basil"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "keyword.operator.basil"
+                }
+            },
+            "patterns": [
+                {
+                    "begin": "\\(",
+                    "end": "\\)",
+                    "patterns": [
+                        { "include": "#comment" },
+                        { "include": "#param" },
+                        { "include": "#typename" },
+                        { "include": "#operator" }
+                    ]
+                },
+                { "include": "#param" }
+            ]
+        },
+        {
+            "begin": "\\b(macro)\\s*",
+            "end": "(=|:)\\s+", 
+            "beginCaptures": {
+                "1": {
+                    "name": "keyword.other.basil"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "keyword.operator.basil"
+                }
+            },
+            "patterns": [
+                {
+                    "begin": "\\(",
+                    "end": "\\)",
+                    "patterns": [
+                        { "include": "#comment" },
+                        { "include": "#param" },
+                        { "include": "#typename" },
+                        { "include": "#operator" }
+                    ]
+                },
+                { "include": "#comment" },
+                { "include": "#fn-ident" },
+                { "include": "#param" }
+            ]
+        },
+        {
+            "name": "constant.language.nil.basil",
+            "match": "\\(\\)"
+        },
+        {
+            "name": "keyword.control.basil",
+            "match": "\\b(if|then|else|while|for|lambda|match|matches|with|do)"
+        },
+        {
+            "name": "keyword.other.basil",
+            "match": "\\b(use|import|def|macro|lambda|module|union|dict|struct|array|list|eval|quote|splice)"
+        },
+        {
+            "name": "constant.language.basil",
+            "match": "\\b(false|true|nil)"
+        },
+        {
+            "name": "keyword.operator.type.basil",
+            "match": "\\b(\\||->|=>|of|just|ref|new|:)"
+        },
+        {
+            "name": "keyword.operator.arithmetic.basil",
+            "match": "\\b(\\+|-|\\*|/|%|=|==|!=|:=)"
+        },
+        {
+            "name": "keyword.operator.other.basil",
+            "match": "\\b(::|head|tail|cons)"
+        },
+        {
+            "name": "keyword.operator.logic.basil",
+            "match": "\\b(and|or|xor|not)"
+        },
+        { "include": "#typevar" },
+        { "include": "#match" },
+        { "include": "#symbol" },
+        { "include": "#typename" },
+        { "include": "#variable" },
+        { "include": "#operator" },
+        {
+            "begin": "\"",
+            "end": "\"",
+            "name": "string.quoted.double.basil",
+            "patterns": [{
+                "include": "#escapes"
+            }]
+        },
+        {
+            "begin": "'",
+            "end": "'",
+            "name": "constant.character.basil",
+            "patterns": [{
+                "include": "#escapes"
+            }]
+        }
+    ],
+    "repository": {
+        "comment": {
+            "begin": "#",
+            "name": "comment.line.basil",
+            "end": "$"
+        },
+        "fn-ident": {
+            "match": "[[:graph:]&&[:^digit:]&&[^,;\"'#\\(\\)\\[\\]\\{\\}]][[:graph:]&&[^?]&&[^,;:\"'#\\(\\)\\[\\]\\{\\}]]*",
+            "name": "entity.name.function.basil"
+        },
+        "param": {
+            "match": "[[:graph:]&&[:^digit:]&&[^,;\"'#\\(\\)\\[\\]\\{\\}]][[:graph:]&&[^?]&&[^,;\"'#\\(\\)\\[\\]\\{\\}]]*(\\.\\.\\.)?\\?",
+            "name": "variable.parameter.basil"
+        },
+        "match": {
+            "match": "[[:lower:]][[:graph:]&&[^?]&&[^,;\"'#\\(\\)\\[\\]\\{\\}]]*(\\.\\.\\.)?\\?",
+            "name": "variable.parameter.basil"
+        },
+        "typevar": {
+            "match": "[[:upper:]][[:graph:]&&[^?]&&[^,;\"'#\\(\\)\\[\\]\\{\\}]]*(\\.\\.\\.)?\\?",
+            "name": "entity.name.type.basil"
+        },
+        "variable": {
+            "match": "[[:lower:]&&[^,;.\"'#\\(\\)\\[\\]\\{\\}]][[:graph:]&&[^?]&&[^,;:.\"'#\\(\\)\\[\\]\\{\\}]]*",
+            "name": "variable.other.basil"
+        },
+        "symbol": {
+            "match": ":[[:alpha:]][[:graph:]&&[^?]&&[^,;:.\"'#\\(\\)\\[\\]\\{\\}]]*",
+            "name": "constant.other.symbol.basil"
+        },
+        "operator": {
+            "match": "[[:graph:]&&[:^alnum:]&&[^,;.\"'#\\(\\)\\[\\]\\{\\}]][[:graph:]&&[^?]&&[^,;:.\"'#\\(\\)\\[\\]\\{\\}]]*",
+            "name": "keyword.operator.basil"
+        },
+        "typename": {
+            "match": "[[:upper:]&&[^,;.\"'#\\(\\)\\[\\]\\{\\}]][[:graph:]&&[^?]&&[^,;:.\"'#\\(\\)\\[\\]\\{\\}]]*\\??",
+            "name": "entity.name.type.basil"
+        },
+        "escapes": {
+            "patterns": [
+                {
+                    "name": "constant.character.escape.basil",
+                    "match": "\\\\([\\\\bfnrtv'\"]|u\\h{4})"
+                },
+                {
+                    "name": "invalid.character.escape.basil",
+                    "match": "\\\\."
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "basil-syntax",
+	"publisher": "basilTeam",
+	"displayName": "Basil Syntax",
+	"description": "Adds syntax highlighting for the Basil programming language.",
+	"version": "0.0.1",
+	"icon": "./basil.png",
+	"engines": {
+		"vscode": "^1.59.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "basil",
+				"extensions": [".bl", ".basil"]
+			}
+		],
+		"grammars": [
+			{
+				"language": "basil",
+				"scopeName": "source.basil",
+				"path": "./syntaxes/basil.json"
+			}
+		]
+	}
+}
